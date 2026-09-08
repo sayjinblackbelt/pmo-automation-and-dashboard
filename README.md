@@ -283,4 +283,4 @@ Responsabilidades técnicas formais, cálculos, validações e aprovações pert
 GitHub: https://github.com/sayjinblackbelt  
 Repository: https://github.com/sayjinblackbelt/pmo-automation-and-dashboard
 
-<!-- CI validation trigger: portfolio standardization -->
+<!-- CI validation trigger: multilingual author identity -->
