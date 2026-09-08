@@ -8,6 +8,9 @@ on:
       - "web/**"
       - "automation/**"
       - ".github/workflows/pages.yml"
+      - "README.md"
+      - "README.en.md"
+      - "README.es.md"
   workflow_dispatch:
 
 permissions:
@@ -54,6 +57,18 @@ jobs:
 
       - name: Verify generated output
         run: python automation/verify_output.py
+
+      - name: Verify portfolio documentation
+        run: |
+          test -s README.md
+          test -s README.en.md
+          test -s README.es.md
+          grep -q "Filipe G Morais" README.md
+          grep -q "Filipe G Morais" README.en.md
+          grep -q "Filipe G Morais" README.es.md
+          grep -q "github.com/sayjinblackbelt" README.md
+          grep -q "github.com/sayjinblackbelt" README.en.md
+          grep -q "github.com/sayjinblackbelt" README.es.md
 
       - name: Build Pages package
         run: |
