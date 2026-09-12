@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PMO Dashboard | Projeto Demonstrativo</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .executive-panel { border-left: 5px solid #035aa6; }
+    .live-badge { display:inline-block; padding:.35rem .65rem; border-radius:999px; background:#eef6fb; color:#035aa6; font-size:.78rem; font-weight:700; }
+    .executive-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+    .executive-grid > div { padding:1rem; border:1px solid rgba(17,24,27,.12); border-radius:10px; background:#fff; }
+    .executive-grid span { display:block; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; opacity:.7; margin-bottom:.4rem; }
+    .executive-grid strong { display:block; font-size:1.05rem; margin-bottom:.35rem; }
+    .executive-grid p { margin:0; font-size:.9rem; line-height:1.45; }
+    @media (max-width:900px) { .executive-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:560px) { .executive-grid { grid-template-columns:1fr; } .live-badge { display:none; } }
+  </style>
 </head>
 <body>
   <header>
