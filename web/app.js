@@ -1,17 +1,19 @@
 async function loadDashboardData() {
   try {
-    const [documentsResponse, requirementsResponse, analysisResponse, trendResponse] = await Promise.all([
+    const responses = await Promise.all([
       fetch("automation/sample_data/project_documents.csv"),
       fetch("automation/sample_data/project_requirements.csv"),
       fetch("automation/output/document_analysis_report.json"),
       fetch("automation/output/project_trend_report.json")
     ]);
 
-    const documentsText = await documentsResponse.text();
-    const requirementsText = await requirementsResponse.text();
+    if (responses.some(response => !response.ok)) {
+      throw new Error("Um ou mais artefatos do dashboard não estão disponíveis.");
+    }
 
-    const documents = parseCSV(documentsText);
-    const requirements = parseCSV(requirementsText);
+    const [documentsResponse, requirementsResponse, analysisResponse, trendResponse] = responses;
+    const documents = parseCSV(await documentsResponse.text());
+    const requirements = parseCSV(await requirementsResponse.text());
     const analysis = await analysisResponse.json();
     const trends = await trendResponse.json();
 
@@ -25,12 +27,13 @@ async function loadDashboardData() {
     document.getElementById("requirementsCompletion").textContent = requirementsCompletion.toFixed(1) + "%";
     document.getElementById("overall").textContent = overall.toFixed(1) + "%";
 
-    renderAnalysis(analysis);\n    renderRisk(analysis);
+    renderAnalysis(analysis);
+    renderRisk(analysis);
     renderTrends(trends);
   } catch (error) {
     console.error("Não foi possível carregar os dados demonstrativos.", error);
     document.getElementById("analysisStatus").textContent =
-      "Não foi possível carregar a análise documental.";
+      "Não foi possível carregar os dados publicados do dashboard.";
   }
 }
 
@@ -70,7 +73,7 @@ function renderTrends(trends) {
   document.getElementById("currentRisk").textContent =
     Number(trends.risco_atual || 0).toFixed(1);
   document.getElementById("completionForecast").textContent =
-    trends.previsao_semana_conclusao
+    trends.previsao_semana_conclusao != null
       ? "Semana " + trends.previsao_semana_conclusao
       : "Indisponível";
 
@@ -78,7 +81,7 @@ function renderTrends(trends) {
   const riskText = riskTrend < 0 ? "redução" : riskTrend > 0 ? "aumento" : "estabilidade";
 
   document.getElementById("trendSummary").textContent =
-    `O projeto apresenta evolução média de ${trends.taxa_media_progresso_semana} pontos por semana e tendência de ${riskText} do risco (${riskTrend} ponto(s)/semana).`;
+    `O projeto apresenta evolução média de ${Number(trends.taxa_media_progresso_semana || 0).toFixed(2)} pontos por semana e tendência de ${riskText} do risco (${riskTrend.toFixed(2)} ponto(s)/semana).`;
 }
 
 function renderRisk(analysis) {
@@ -88,9 +91,7 @@ function renderRisk(analysis) {
 
   document.getElementById("projectRisk").textContent =
     Number(analysis.indice_risco_projeto || 0).toFixed(1);
-
   document.getElementById("highRiskDocuments").textContent = highRisk;
-
   document.getElementById("riskDistribution").textContent =
     `B: ${distribution.Baixo || 0} · M: ${distribution["Médio"] || 0} · A: ${distribution.Alto || 0}`;
 
@@ -112,10 +113,12 @@ function renderRisk(analysis) {
 
 function parseCSV(text) {
   const lines = text.trim().split(/\r?\n/);
+  if (!lines.length || !lines[0]) return [];
+
   const headers = lines.shift().split(",");
   return lines.map(line => {
     const values = line.split(",");
-    return Object.fromEntries(headers.map((header, index) => [header, values[index]]));
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]));
   });
 }
 
