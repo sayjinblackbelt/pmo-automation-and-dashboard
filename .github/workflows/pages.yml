@@ -43,20 +43,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r automation/requirements.txt
 
-      - name: Validate input data
-        run: python automation/validate_data.py
-
-      - name: Generate dashboard assets
-        run: python automation/generate_visual_dashboard.py
-
-      - name: Run intelligent document analysis
-        run: python automation/analyze_documents.py
-
-      - name: Analyze project trends
-        run: python automation/project_trend_analysis.py
-
-      - name: Verify generated output
-        run: python automation/verify_output.py
+      - name: Run complete automation pipeline
+        run: python automation/run_project.py
 
       - name: Verify portfolio documentation
         run: |
@@ -72,6 +60,7 @@ jobs:
 
       - name: Build Pages package
         run: |
+          rm -rf _site
           mkdir -p _site
           cp -r web/. _site/
           mkdir -p _site/automation/output
