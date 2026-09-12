@@ -17,11 +17,64 @@
   </header>
 
   <main>
+    <section class="panel filters-panel" aria-labelledby="filters-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow dark">EXPLORAÇÃO</p>
+          <h2 id="filters-title">Filtros do dashboard</h2>
+        </div>
+        <button id="resetFilters" type="button" class="secondary-button">Limpar filtros</button>
+      </div>
+      <div class="filters-grid">
+        <label>Disciplina
+          <select id="disciplineFilter"><option value="">Todas</option></select>
+        </label>
+        <label>Status
+          <select id="statusFilter"><option value="">Todos</option></select>
+        </label>
+        <label>Responsável
+          <select id="ownerFilter"><option value="">Todos</option></select>
+        </label>
+        <label>Progresso mínimo
+          <select id="progressFilter">
+            <option value="0">0%</option>
+            <option value="25">25%</option>
+            <option value="50">50%</option>
+            <option value="75">75%</option>
+            <option value="100">100%</option>
+          </select>
+        </label>
+      </div>
+      <p id="filterSummary" class="analysis-status" aria-live="polite">Carregando dados...</p>
+    </section>
+
     <section class="metrics">
       <article class="metric"><span>Documentos</span><strong id="documents">—</strong></article>
       <article class="metric"><span>Progresso documental</span><strong id="documentProgress">—</strong></article>
       <article class="metric"><span>Requisitos concluídos</span><strong id="requirementsCompletion">—</strong></article>
       <article class="metric"><span>Índice geral</span><strong id="overall">—</strong></article>
+    </section>
+
+    <section class="panel">
+      <h2>Documentos do projeto</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Código</th><th>Título</th><th>Disciplina</th><th>Status</th><th>Responsável</th><th>Progresso</th></tr></thead>
+          <tbody id="documentsTable"></tbody>
+        </table>
+      </div>
+      <p class="table-hint">Clique em uma linha para ver os detalhes e o risco do documento.</p>
+      <div id="documentDetails" class="detail-card" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Requisitos</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Tema</th><th>Descrição</th><th>Status</th><th>Prioridade</th><th>Responsável</th></tr></thead>
+          <tbody id="requirementsTable"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="panel">
@@ -72,10 +125,7 @@
     </section>
   </main>
 
-  <footer>
-    Dados fictícios e demonstrativos. Nenhuma informação corporativa real é utilizada.
-  </footer>
-
+  <footer>Dados fictícios e demonstrativos. Nenhuma informação corporativa real é utilizada.</footer>
   <script src="app.js"></script>
 </body>
 </html>
