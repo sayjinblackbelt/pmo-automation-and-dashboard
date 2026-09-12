@@ -31,6 +31,8 @@
       <article class="metric"><span>Documentos</span><strong id="documents">—</strong></article><article class="metric"><span>Progresso documental</span><strong id="documentProgress">—</strong></article><article class="metric"><span>Requisitos concluídos</span><strong id="requirementsCompletion">—</strong></article><article class="metric"><span>Índice geral</span><strong id="overall">—</strong></article>
     </section>
 
+    <section class="panel executive-panel"><div class="section-heading"><div><p class="eyebrow dark">LEITURA EXECUTIVA</p><h2>O que merece atenção?</h2></div><span class="live-badge">Atualizado pelos filtros</span></div><div id="executiveSummary" class="executive-summary" aria-live="polite"><p>Gerando leitura do recorte...</p></div></section>
+
     <section class="panel"><h2>Documentos do projeto</h2><div class="table-wrap"><table><thead><tr><th>Código</th><th>Título</th><th>Disciplina</th><th>Status</th><th>Responsável</th><th>Progresso</th></tr></thead><tbody id="documentsTable"></tbody></table></div><p class="table-hint">Clique em uma linha para ver os detalhes e o risco do documento.</p><div id="documentDetails" class="detail-card" hidden aria-live="polite"></div></section>
     <section class="panel"><h2>Requisitos</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Tema</th><th>Descrição</th><th>Status</th><th>Prioridade</th><th>Responsável</th></tr></thead><tbody id="requirementsTable"></tbody></table></div></section>
     <section class="panel"><h2>Visão geral</h2><p>Este dashboard é gerado a partir de dados simulados e demonstra a integração entre PMO, dados estruturados, Python, visualização e GitHub Actions.</p></section>
@@ -52,5 +54,6 @@
   </main>
   <footer>Dados fictícios e demonstrativos. Nenhuma informação corporativa real é utilizada.</footer>
   <script src="app.js"></script>
+  <script src="executive.js"></script>
 </body>
 </html>
