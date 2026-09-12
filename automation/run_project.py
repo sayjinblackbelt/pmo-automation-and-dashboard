@@ -1,5 +1,5 @@
 """
-Executa a sequência básica de automação demonstrativa.
+Executa a sequência completa da automação demonstrativa.
 
 Uso:
     python automation/run_project.py
@@ -10,15 +10,19 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+AUTOMATION = ROOT / "automation"
 
 scripts = [
-    "document_registry.py",
-    "requirements_tracker.py",
-    "revision_control.py",
-    "dashboard.py",
+    "validate_data.py",
+    "generate_visual_dashboard.py",
+    "analyze_documents.py",
+    "project_trend_analysis.py",
+    "verify_output.py",
 ]
 
 for script in scripts:
-    path = ROOT / "automation" / script
+    path = AUTOMATION / script
     print(f"\n>>> Executando {script}")
     subprocess.run([sys.executable, str(path)], check=True)
+
+print("\nAUTOMAÇÃO COMPLETA CONCLUÍDA COM SUCESSO")
