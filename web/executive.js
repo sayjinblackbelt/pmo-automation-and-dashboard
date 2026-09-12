@@ -24,15 +24,16 @@ function renderExecutiveReading() {
 }
 
 function initExecutiveReading() {
-  if (renderExecutiveReading()) return;
   const timer = setInterval(() => {
     if (renderExecutiveReading()) clearInterval(timer);
   }, 100);
   setTimeout(() => clearInterval(timer), 10000);
-  ["disciplineFilter", "statusFilter", "ownerFilter", "progressFilter", "resetFilters"].forEach(id => {
+  ["disciplineFilter", "statusFilter", "ownerFilter", "progressFilter"].forEach(id => {
     const element = document.getElementById(id);
     if (element) element.addEventListener("change", renderExecutiveReading);
   });
+  const reset = document.getElementById("resetFilters");
+  if (reset) reset.addEventListener("click", () => setTimeout(renderExecutiveReading, 0));
 }
 
 document.addEventListener("DOMContentLoaded", initExecutiveReading);
